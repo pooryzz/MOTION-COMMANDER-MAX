@@ -51,3 +51,6 @@ For a competition with a strict start-time rule, preserve an honest Git history 
 
 ## Live Demo
 https://motion-commander-max.vercel.app
+
+## 📊 Presentation
+[View Presentation PDF](./presentation/Презентация%20проекта%20MOTION%20COMMANDER.pdf)
