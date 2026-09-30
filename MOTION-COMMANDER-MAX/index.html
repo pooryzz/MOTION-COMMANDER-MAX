@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>MOTION COMMANDER // NEON FRONTIER</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <div class="eyebrow">MOTION SYSTEM // ONLINE</div>
+        <h1>MOTION COMMANDER</h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="live-chip"><i></i> CAMERA CONTROL</div>
+      <button id="muteBtn" class="icon-btn" title="Toggle sound">🔊</button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="arena-panel panel">
+      <div class="panel-head">
+        <div>
+          <span class="section-kicker">MISSION 01</span>
+          <h2>NEON FRONTIER</h2>
+        </div>
+        <div class="mission-state">
+          <span id="missionLabel">EXTERMINATE 8</span>
+          <div class="progress"><i id="missionProgress"></i></div>
+        </div>
+      </div>
+
+      <div class="arena-wrap">
+        <canvas id="gameCanvas" width="1200" height="720"></canvas>
+        <div class="damage-flash" id="damageFlash"></div>
+
+        <div class="center-toast hidden" id="gameToast">
+          <strong id="toastTitle">READY</strong>
+          <span id="toastText">Move your hand to command the hero.</span>
+        </div>
+
+        <div class="start-screen" id="startScreen">
+          <div class="start-card">
+            <div class="big-logo">MOTION<br><span>COMMANDER</span></div>
+            <div class="start-sub">A hands-only tactical arena</div>
+            <div class="start-grid">
+              <div><b>🖐 MOVE</b><small>Your hand position moves the commander.</small></div>
+              <div><b>✊ ATTACK</b><small>Close your fingers into a fist.</small></div>
+              <div><b>✋ SHIELD</b><small>Open your whole palm.</small></div>
+              <div><b>☝ SPECIAL</b><small>Raise your index finger upward.</small></div>
+            </div>
+            <button id="startBtn" class="primary-btn">INITIALIZE CAMERA</button>
+            <p class="micro">Camera stays inside your browser. Nothing is uploaded by this app.</p>
+          </div>
+        </div>
+
+        <div class="result-screen hidden" id="resultScreen">
+          <div class="result-card">
+            <span class="section-kicker" id="resultKicker">MISSION COMPLETE</span>
+            <h2 id="resultTitle">VICTORY</h2>
+            <div class="result-stats">
+              <div><span>SCORE</span><b id="finalScore">0</b></div>
+              <div><span>DEFEATED</span><b id="finalKills">0</b></div>
+              <div><span>ACCURACY</span><b id="finalAccuracy">0%</b></div>
+              <div><span>COMBO</span><b id="finalCombo">0</b></div>
+            </div>
+            <button id="restartBtn" class="primary-btn">RUN MISSION AGAIN</button>
+          </div>
+        </div>
+
+        <div class="hud hud-top">
+          <div class="hero-info">
+            <div class="avatar">MC</div>
+            <div>
+              <b>COMMANDER</b>
+              <div class="hp-row"><i id="hpBar"></i></div>
+            </div>
+            <strong id="hpText">100</strong>
+          </div>
+          <div class="hud-stats">
+            <div><span>SCORE</span><b id="score">0</b></div>
+            <div><span>COMBO</span><b id="combo">x0</b></div>
+            <div><span>KILLS</span><b id="kills">0</b></div>
+          </div>
+        </div>
+
+        <div class="hud hud-bottom">
+          <div class="command-strip">
+            <span class="key active">HAND</span>
+            <span id="liveCommand">MOVE READY</span>
+          </div>
+          <div class="zone-text" id="zoneText">SECTOR A // OUTER RING</div>
+        </div>
+
+        <div class="minimap" id="minimap">
+          <div class="mini-title">TACTICAL MAP</div>
+          <canvas id="miniCanvas" width="190" height="120"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <aside class="right-column">
+      <section class="vision panel">
+        <div class="panel-head compact">
+          <div><span class="section-kicker">VISION CORE</span><h3>LIVE HAND TRACKING</h3></div>
+          <span id="visionPill" class="pill offline">OFFLINE</span>
+        </div>
+        <div class="camera-box">
+          <video id="camera" autoplay playsinline muted></video>
+          <canvas id="handCanvas" width="640" height="480"></canvas>
+          <div class="camera-grid"></div>
+          <div class="camera-crosshair"></div>
+          <div class="camera-label">LOCAL FEED // MIRRORED</div>
+          <div id="cameraMessage" class="camera-message">Camera inactive</div>
+        </div>
+        <div class="vision-metrics">
+          <div><span>GESTURE</span><b id="gestureName">—</b></div>
+          <div><span>CONFIDENCE</span><b id="confidence">0%</b></div>
+          <div><span>TRACK</span><b id="trackState">NO HAND</b></div>
+        </div>
+        <div id="feedback" class="feedback neutral">
+          Initialize the camera to begin.
+        </div>
+      </section>
+
+      <section class="commands panel">
+        <div class="panel-head compact">
+          <div><span class="section-kicker">COMMAND DECK</span><h3>GESTURES</h3></div>
+          <span class="pill">CUSTOM RULES</span>
+        </div>
+        <div class="command-list">
+          <div class="command-card"><div class="gesture-icon">✊</div><div><b>FIST</b><small>Pulse attack</small></div><span class="command-tag">ATK</span></div>
+          <div class="command-card"><div class="gesture-icon">✋</div><div><b>OPEN PALM</b><small>Energy shield</small></div><span class="command-tag">DEF</span></div>
+          <div class="command-card"><div class="gesture-icon">☝</div><div><b>INDEX UP</b><small>Nova special</small></div><span class="command-tag">ULT</span></div>
+          <div class="command-card"><div class="gesture-icon">◎</div><div><b>HAND POSITION</b><small>Move commander</small></div><span class="command-tag">MOVE</span></div>
+        </div>
+      </section>
+
+      <section class="feedback-panel panel">
+        <div class="panel-head compact">
+          <div><span class="section-kicker">ERROR MODE</span><h3>COACH</h3></div>
+          <span class="pill coach">ACTIVE</span>
+        </div>
+        <div class="coach-box">
+          <div class="coach-icon">!</div>
+          <div>
+            <b id="coachTitle">WAITING FOR INPUT</b>
+            <p id="coachText">The system gives a concrete correction when a gesture is unclear.</p>
+          </div>
+        </div>
+        <div class="event-log" id="eventLog">
+          <div><span>--:--</span> System ready</div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <footer>
+    <span>MediaPipe Hand Landmarker • Canvas 2D • Custom gesture classification</span>
+    <span>NEON FRONTIER v3.0</span>
+  </footer>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
