@@ -47,3 +47,7 @@ Open `http://localhost:8000` and allow camera access.
 The hand-tracking model/library is an allowed dependency. The game mechanics, gesture rules, feedback logic, scoring and interaction layer are application code.
 
 For a competition with a strict start-time rule, preserve an honest Git history and disclose any boilerplate or pre-existing work as required by the event.
+
+
+## Live Demo
+https://motion-commander-max.vercel.app
